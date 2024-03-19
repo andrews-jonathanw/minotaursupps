@@ -1,28 +1,17 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { getFirestore, getDocs, collection } from 'firebase/firestore';
-import '../firebase/firebase';
+import fetchData from '../lib/utils/fireStoreUtils';
 
 const Home = () => {
   const [data, setData] = useState(null);
-  const firestore = getFirestore();
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const querySnapshot = await getDocs(collection(firestore, 'test'));
-        const documentsData = querySnapshot.docs.map(doc => doc.data());
-        if (documentsData.length > 0) {
-          setData(documentsData[0]);
-        } else {
-          console.log('No documents found in the collection!');
-        }
-      } catch (error) {
-        console.error('Error fetching documents:', error);
-      }
+    const fetchDataFromFirestore = async () => {
+      const fetchedData = await fetchData();
+      setData(fetchedData);
     };
 
-    fetchData();
+    fetchDataFromFirestore();
   }, []);
 
   return (
@@ -31,7 +20,7 @@ const Home = () => {
         {data ? (
           <div>
             <h1>Fuel Your Inner Beast</h1>
-
+            {data.hello}
           </div>
         ) : (
           <p>Loading...</p>
