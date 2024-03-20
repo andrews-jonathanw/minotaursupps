@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import fetchData from '../lib/utils/fireStoreUtils';
 import { initFirebase } from '@/firebase/firebase';
 import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import { getCheckoutUrl } from '../lib/utils/stripePayment';
+import {useRouter} from 'next/navigation';
 
 const Home = () => {
   const [data, setData] = useState(null);
@@ -10,6 +12,7 @@ const Home = () => {
   const app = initFirebase();
   const auth = getAuth(app);
   const provider = new GoogleAuthProvider();
+  const router = useRouter();
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -48,6 +51,14 @@ const Home = () => {
     }
   };
 
+  const buyProduct = async () => {
+    const priceId = 'price_1OwTGHBxfh2DMycNZPky2SoK';
+    const checkoutUrl = await getCheckoutUrl(app, priceId);
+    router.push(checkoutUrl);
+  };
+
+
+
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
@@ -84,6 +95,11 @@ const Home = () => {
                 Sign Out
               </button>
             </div>
+              {user && (
+                <button className="border border-black bg-blue-500" onClick={buyProduct}>
+                  Buy Product
+                </button>
+              )}
           </div>
         ) : (
           <p>Loading...</p>
