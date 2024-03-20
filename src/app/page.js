@@ -10,7 +10,7 @@ const Home = () => {
   const [products, setProducts] = useState([]);
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
-  const [currency, setCurrency] = useState('USD');
+  const [currency, setCurrency] = useState(localStorage.getItem('currency') || 'USD');
   const [exchangeRates, setExchangeRates] = useState(null);
   const app = initFirebase();
   const auth = getAuth(app);
@@ -103,10 +103,20 @@ const Home = () => {
     }
   };
 
+  const setAndSaveCurrency = (value) => {
+    setCurrency(value);
+    localStorage.setItem('currency', value);
+  };
+
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
+    const storedCurrency = localStorage.getItem('currency');
     if (storedUser) {
       setUser(JSON.parse(storedUser));
+    }
+
+    if (storedCurrency) {
+      setCurrency(storedCurrency);
     }
   }, []);
 
@@ -116,7 +126,7 @@ const Home = () => {
         <div className="flex flex-col items-center mb-4">
           <h1 className="text-2xl font-semibold">{user.displayName}</h1>
           <img className="w-20 h-20 rounded-full" src={user.photoURL} alt={user.displayName} />
-          <select className="mt-2 p-1" value={currency} onChange={(e) => setCurrency(e.target.value)}>
+          <select className="mt-2 p-1" value={currency} onChange={(e) => setAndSaveCurrency(e.target.value)}>
             <option value="USD">USD</option>
             <option value="EUR">EUR</option>
             <option value="GBP">GBP</option>
