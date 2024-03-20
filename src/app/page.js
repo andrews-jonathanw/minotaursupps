@@ -9,6 +9,7 @@ import {useRouter} from 'next/navigation';
 const Home = () => {
   const [data, setData] = useState(null);
   const [user, setUser] = useState(null);
+  const [error, setError] = useState(null);
   const app = initFirebase();
   const auth = getAuth(app);
   const provider = new GoogleAuthProvider();
@@ -53,8 +54,12 @@ const Home = () => {
 
   const buyProduct = async () => {
     const priceId = 'price_1OwTGHBxfh2DMycNZPky2SoK';
-    const checkoutUrl = await getCheckoutUrl(app, priceId);
-    router.push(checkoutUrl);
+    try {
+      const checkoutUrl = await getCheckoutUrl(app, priceId);
+      router.push(checkoutUrl);
+    } catch (error) {
+      setError(error.message);
+    }
   };
 
 
@@ -94,12 +99,11 @@ const Home = () => {
               <button className="border border-black bg-blue-500" onClick={signOut}>
                 Sign Out
               </button>
+            <button className="border border-black bg-blue-500" onClick={buyProduct}>
+              Buy Test Product
+            </button>
+            {error && <p className='text-xs text-red-400'>{error}</p>}
             </div>
-              {user && (
-                <button className="border border-black bg-blue-500" onClick={buyProduct}>
-                  Buy Product
-                </button>
-              )}
           </div>
         ) : (
           <p>Loading...</p>
