@@ -1,18 +1,35 @@
-import { getFirestore, getDocs, collection } from 'firebase/firestore';
+import { getFirestore, getDocs, collection, query, where } from 'firebase/firestore';
 import '../../firebase/firebase';
 
-const fetchData = async () => {
+const fetchProducts = async () => {
   const firestore = getFirestore();
 
   try {
-    const querySnapshot = await getDocs(collection(firestore, 'test'));
-    const documentsData = querySnapshot.docs.map(doc => doc.data());
-    return documentsData.length > 0 ? documentsData[0] : null;
+    // Construct a query to fetch products where active is true and archived is false
+    const q = query(collection(firestore, 'products'),
+                    where('active', '==', true));
+    const productsQuerySnapshot = await getDocs(q);
+    const products = [];
+
+    for (const productDoc of productsQuerySnapshot.docs) {
+      const productData = productDoc.data();
+      const pricesQuerySnapshot = await getDocs(collection(productDoc.ref, 'prices'));
+      const prices = pricesQuerySnapshot.docs.map(priceDoc => ({
+        id: priceDoc.id,
+        ...priceDoc.data()
+      }));
+      products.push({
+        id: productDoc.id,
+        ...productData,
+        prices
+      });
+    }
+
+    return products;
   } catch (error) {
-    console.error('Error fetching documents:', error);
-    return null;
+    console.error('Error fetching products:', error);
+    return [];
   }
 };
 
-export default fetchData;
-
+export default fetchProducts;
