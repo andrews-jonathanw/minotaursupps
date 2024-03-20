@@ -10,7 +10,13 @@ const Home = () => {
   const [products, setProducts] = useState([]);
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
-  const [currency, setCurrency] = useState(localStorage.getItem('currency') || 'USD');
+  const [currency, setCurrency] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('currency') || 'USD';
+    } else {
+      return 'USD';
+    }
+  });
   const [exchangeRates, setExchangeRates] = useState(null);
   const app = initFirebase();
   const auth = getAuth(app);
@@ -69,9 +75,6 @@ const Home = () => {
       return Math.round(amount / rate * 100) / 100;
     }
   };
-
-
-
 
 
   const signIn = async () => {
