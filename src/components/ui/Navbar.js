@@ -20,24 +20,15 @@ const NavBar = () => {
     }, 100);
   };
 
-  const menuItems = {
-    '/products/supplements': [
-      { title: 'supplements 1', href: '/products/supplements/subitem1' },
-      { title: 'supplements 2', href: '/products/supplements/subitem2' }
-    ],
-    '/products/merch': [
-      { title: 'merch 1', href: '/products/merch/subitem1' },
-      { title: 'merch 2', href: '/products/merch/subitem2' }
-    ],
-    '/products/accessories': [
-      { title: 'accessories 1', href: '/products/accessories/subitem1' },
-      { title: 'accessories 2', href: '/products/accessories/subitem2' }
-    ],
-    '/products/newreleases': [
-      { title: 'newreleases 1', href: '/products/newreleases/subitem1' },
-      { title: 'newreleases 2', href: '/products/newreleases/subitem2' }
-    ]
-  };
+  if (hoveredLink) {
+    console.log(hoveredLink.split('/')[2]);
+    const filteredProducts = products.filter((product) => {
+      console.log(product.metadata.category)
+      return product.metadata.category === hoveredLink.split('/')[2];
+    });
+    console.log(filteredProducts);
+  }
+
 
 
   return (
@@ -72,7 +63,6 @@ const NavBar = () => {
 
       {hoveredLink && (
         <SubMenu
-          items={menuItems[hoveredLink]}
           onMouseEnter={() => {
             if (leaveTimeoutRef.current) clearTimeout(leaveTimeoutRef.current);
           }}
