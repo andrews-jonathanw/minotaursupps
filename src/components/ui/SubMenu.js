@@ -1,17 +1,37 @@
 import React from 'react';
 import Link from 'next/link';
 
-const SubMenu = ({onMouseEnter, onMouseLeave }) => {
+const SubMenu = ({ menuItems, onMouseEnter, onMouseLeave }) => {
+  const groupedProducts = menuItems.reduce((acc, product) => {
+    const type = product.metadata.type;
+    if (!acc[type]) {
+      acc[type] = [];
+    }
+    acc[type].push(product);
+    return acc;
+  }, {});
+
   return (
     <div
-      className="absolute bg-gray-900 shadow-md rounded-md py-2 px-3 mt-20 w-3/4"
+      className="absolute bg-gray-900 shadow-md rounded-md py-2 px-3 w-3/4 flex flex-row justify-between gap-4"
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
+      style={{ top: 'calc(65%)', left: '50%', transform: 'translateX(-50%)', zIndex: 10 }}
     >
-      <div>
-        <ul className='flex flex-row gap-2 justify-evenly items-center'>
-        </ul>
-      </div>
+      {Object.keys(groupedProducts).map(type => (
+        <div key={type}>
+          <h3 className="text-white text-lg font-semibold mb-2">{type.toUpperCase()}</h3>
+          <ul>
+            {groupedProducts[type].map(product => (
+              <li key={product.id}>
+                <Link href={`/product/${product.id}`}>
+                  {product.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
     </div>
   );
 };

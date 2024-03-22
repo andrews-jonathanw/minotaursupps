@@ -6,12 +6,16 @@ import { ProductsContext } from '@/lib/context/ProductProvider';
 
 const NavBar = () => {
   const { products } = React.useContext(ProductsContext);
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const [hoveredLink, setHoveredLink] = useState(null);
   const leaveTimeoutRef = useRef(null);
 
   const handleMouseEnterLink = (link) => {
     if (leaveTimeoutRef.current) clearTimeout(leaveTimeoutRef.current);
     setHoveredLink(link);
+    const category = link.split('/')[2];
+    const filtered = products.filter(product => product.metadata.category === category);
+    setFilteredProducts(filtered);
   };
 
   const handleMouseLeaveLink = () => {
@@ -20,21 +24,8 @@ const NavBar = () => {
     }, 100);
   };
 
-  if (hoveredLink) {
-    console.log(hoveredLink.split('/')[2]);
-    const filteredProducts = products.filter((product) => {
-      console.log(product.metadata.category)
-      return product.metadata.category === hoveredLink.split('/')[2];
-    });
-    console.log(filteredProducts);
-  }
-
-
-
   return (
-    <div
-      className='w-full flex flex-row gap-4 justify-center items-center h-24 bg-gray-600 text-white sticky top-0 z-10'
-    >
+    <div className='w-full flex flex-row gap-4 justify-center items-center h-20 bg-gray-600 text-white sticky top-0 z-10'>
       <Link href="/">HOME</Link>
       <div
         onMouseEnter={() => handleMouseEnterLink('/products/supplements')}
@@ -63,6 +54,7 @@ const NavBar = () => {
 
       {hoveredLink && (
         <SubMenu
+          menuItems={filteredProducts}
           onMouseEnter={() => {
             if (leaveTimeoutRef.current) clearTimeout(leaveTimeoutRef.current);
           }}
@@ -76,3 +68,4 @@ const NavBar = () => {
 };
 
 export default NavBar;
+
