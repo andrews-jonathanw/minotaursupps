@@ -113,7 +113,7 @@ const Home = () => {
   }, []);
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between bg-transparent mx-10">
+    <main className="flex min-h-screen flex-col items-center justify-between bg-transparent">
       <h1 className="text-2xl font-semibold text-white">Minotaur Supps</h1>
     </main>
   );
