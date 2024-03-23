@@ -23,7 +23,7 @@ export default function RootLayout({ children }) {
         />
       </head>
 
-      <body className='bg-black mx-12'>
+      <body className='bg-black'>
         <ProductsProvider>
           <NavBar />
           {children}

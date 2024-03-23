@@ -29,17 +29,17 @@ const NavBar = () => {
   };
 
   return (
-    <div className='w-full h-20 bg-gray-600 text-white sticky top-0 z-10'>
-      <div className='relative w-full h-full flex flex-row items-center justify-center'>
+    <div className='h-20 bg-gray-600 text-white sticky top-0 z-10'>
+      <div className='relative w-full h-full flex justify-between items-center px-10 gap-2'>
 
-        <div className='absolute left-0 px-4'>
+        <div className='flex items-center'>
           <Link href="/">
             HOME
           </Link>
         </div>
 
 
-        <div className="hidden md:flex flex-row gap-4 justify-between items-center">
+        <div className="absolute translate-x-[-50%] left-[50%] hidden md:flex flex-row gap-4 justify-center items-center">
           <div
             onMouseEnter={() => handleMouseEnterLink('/products/supplements')}
             onMouseLeave={handleMouseLeaveLink}
@@ -64,9 +64,10 @@ const NavBar = () => {
           >
             <Link href="/products/newreleases" className='text-nowrap'>NEW RELEASES</Link>
           </div>
+            <Link href="/blog" className='text-nowrap'>BLOG</Link>
         </div>
 
-        <div className="absolute right-0 px-4 flex gap-4">
+        <div className="flex flex-row gap-4">
           <HamburgerMenu onClick={handleHamburgerClick} />
           <button className="hidden md:block">Search</button>
           <button className="hidden md:block">Account</button>
