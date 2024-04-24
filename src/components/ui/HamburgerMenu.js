@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import HamburgerItem from './HamburgerItem';
 
 const HamburgerMenu = ({ isOpen, onClose }) => {
   return (
@@ -14,11 +15,12 @@ const HamburgerMenu = ({ isOpen, onClose }) => {
         >
           <div className="text-end m-4 cursor-pointer" onClick={onClose}>X</div>
           <div className="flex flex-col">
-            <a href="/products/supplements">SUPPLEMENTS</a>
+            <HamburgerItem />
+            {/* <a href="/products/supplements">SUPPLEMENTS</a>
             <a href="/products/merch">MERCH</a>
             <a href="/products/accessories">ACCESSORIES</a>
             <a href="/products/newreleases">NEW RELEASES</a>
-            <a href="/blog">BLOG</a>
+            <a href="/blog">BLOG</a> */}
           </div>
 
         </motion.div>
