@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 
-export default function HamburgerItem() {
+export default function HamburgerItem( { link } ) {
   const [firstOpen, setFirstOpen] = useState(true);
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
 
@@ -15,7 +15,7 @@ export default function HamburgerItem() {
     <div className='flex flex-col gap-2'>
       <div className="border-t border-gray-400"></div>
       <div className='flex flex-row relative'>
-        <div className='ml-6 mt-1'>SUPPLEMENTS</div>
+        <div className='ml-6 mt-1'>{link.name}</div>
         <div className='absolute right-0 mr-10 border-l border-gray-400 h-7 mx-2 mt-1'></div>
         <motion.button
           onClick={toggleDropDown}

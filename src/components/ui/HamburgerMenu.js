@@ -3,6 +3,15 @@ import { motion, AnimatePresence } from 'framer-motion';
 import HamburgerItem from './HamburgerItem';
 
 const HamburgerMenu = ({ isOpen, onClose }) => {
+
+  const menuLinks = [
+    { name: 'SUPPLEMENTS', url: '/products/supplements' },
+    { name: 'MERCH', url: '/products/merch' },
+    { name: 'ACCESSORIES', url: '/products/accessories' },
+    { name: 'NEW RELEASES', url: '/products/newreleases' },
+    { name: 'BLOG', url: '/blog' }
+  ];
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -15,12 +24,10 @@ const HamburgerMenu = ({ isOpen, onClose }) => {
         >
           <div className="text-end m-4 cursor-pointer" onClick={onClose}>X</div>
           <div className="flex flex-col">
-            <HamburgerItem />
-            {/* <a href="/products/supplements">SUPPLEMENTS</a>
-            <a href="/products/merch">MERCH</a>
-            <a href="/products/accessories">ACCESSORIES</a>
-            <a href="/products/newreleases">NEW RELEASES</a>
-            <a href="/blog">BLOG</a> */}
+            {menuLinks.map((link, index) => (
+              <HamburgerItem key={index} link={link} />
+            ))}
+
           </div>
 
         </motion.div>
