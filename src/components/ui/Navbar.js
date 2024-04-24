@@ -4,6 +4,7 @@ import Link from 'next/link';
 import SubMenu from './SubMenu';
 import HamburgerMenu from './HamburgerMenu';
 import { ProductsContext } from '@/lib/context/ProductProvider';
+import { FaSearch, FaUser, FaShoppingCart } from 'react-icons/fa';
 
 const NavBar = () => {
   const { products } = React.useContext(ProductsContext);
@@ -29,17 +30,17 @@ const NavBar = () => {
   };
 
   return (
-    <div className='h-20 bg-gray-600 text-white sticky top-0 z-10'>
-      <div className='relative w-full h-full flex justify-between items-center px-10 gap-2'>
 
-        <div className='flex items-center'>
-          <Link href="/">
-            HOME
-          </Link>
+    <div className='h-20 bg-gray-600 text-white sticky top-0 z-10'>
+      <div className='relative w-full h-full flex justify-center items-center px-4 md:px-10'>
+
+        {/* Left section */}
+        <div className='flex items-center absolute left-0 ml-8'>
+          <Link href="/">HOME</Link>
         </div>
 
-
-        <div className="absolute translate-x-[-50%] left-[50%] hidden md:flex flex-row gap-4 justify-center items-center">
+        {/* Center section */}
+        <div className="hidden md:flex flex-row gap-4 justify-center items-center">
           <div
             onMouseEnter={() => handleMouseEnterLink('/products/supplements')}
             onMouseLeave={handleMouseLeaveLink}
@@ -64,14 +65,14 @@ const NavBar = () => {
           >
             <Link href="/products/newreleases" className='text-nowrap'>NEW RELEASES</Link>
           </div>
-            <Link href="/blog" className='text-nowrap'>BLOG</Link>
+          <Link href="/blog" className='text-nowrap'>BLOG</Link>
         </div>
 
-        <div className="flex flex-row gap-4">
-          <HamburgerMenu onClick={handleHamburgerClick} />
-          <button className="hidden md:block">Search</button>
-          <button className="hidden md:block">Account</button>
-          <button className="hidden md:block">Cart</button>
+        {/* Right section */}
+        <div className="flex flex-row gap-4 items-center absolute right-0 mr-8">
+          <FaSearch className="hidden md:block" />
+          <FaUser className="hidden md:block" />
+          <FaShoppingCart className="hidden md:block" />
         </div>
 
         {hoveredLink && (
@@ -88,6 +89,6 @@ const NavBar = () => {
       </div>
     </div>
   );
-};
+}
 
 export default NavBar;

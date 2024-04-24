@@ -19,12 +19,12 @@ const SubMenu = ({ menuItems, onMouseEnter, onMouseLeave }) => {
       style={{ top: 'calc(65%)', left: '50%', transform: 'translateX(-50%)', zIndex: 10 }}
     >
       {Object.keys(groupedProducts).map(type => (
-        <div key={type}>
-          <h3 className="text-white text-lg font-semibold mb-2">{type.toUpperCase()}</h3>
+        <div key={type} className=''>
+          <h3 className="text-white text-lg font-bold mb-2">{type.toUpperCase()}</h3>
           <ul>
             {groupedProducts[type].map(product => (
               <li key={product.id}>
-                <Link href={`/product/${product.id}`}>
+                <Link href={`/product/${product.id}`} className='inline-block hover:underline hover:text-blue-300 transition duration-300'>
                   {product.name}
                 </Link>
               </li>
