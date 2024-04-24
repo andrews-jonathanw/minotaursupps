@@ -13,7 +13,7 @@ const SubMenu = ({ menuItems, onMouseEnter, onMouseLeave }) => {
 
   return (
     <div
-      className="absolute bg-gray-900 shadow-md rounded-md py-2 px-3 w-3/4 flex flex-row justify-between gap-4"
+      className="absolute bg-black shadow-md rounded-md py-2 px-3 w-full flex flex-row justify-between gap-4"
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       style={{ top: 'calc(65%)', left: '50%', transform: 'translateX(-50%)', zIndex: 10 }}

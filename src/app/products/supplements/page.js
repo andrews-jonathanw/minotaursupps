@@ -3,21 +3,43 @@ import React, { useState } from 'react';
 import { ProductsContext } from '@/lib/context/ProductProvider';
 import ProductTile from '@/components/products/ProductTile';
 
+const SupplementTypes = [
+  { name: 'Performance', type: 'performance' },
+  { name: 'Recovery', type: 'recovery' },
+  { name: 'Protein', type: 'protein' },
+  { name: 'Shop By Goal', type: ['weightgain', 'weightloss', 'musclebuilding'] },
+];
+
 export default function Page() {
   const { products } = React.useContext(ProductsContext);
   const [searchQuery, setSearchQuery] = useState('');
+  const [selectedType, setSelectedType] = useState(null);
 
   const filteredProducts = products.filter(product =>
-    product.name.toLowerCase().includes(searchQuery.toLowerCase())
+    product.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
+    (!selectedType ||
+      (Array.isArray(selectedType) ?
+        selectedType.includes(product.metadata.type) :
+        product.metadata.type === selectedType)
+    )
   );
 
   const handleSearchChange = event => {
     setSearchQuery(event.target.value);
   };
 
+  const handleTypeClick = (type) => {
+    if (selectedType === type) {
+      setSelectedType(null);
+      return;
+    }
+    setSelectedType(type);
+  };
+
   return (
-    <div className='flex flex-col justify-center items-center h-full'>
-      <div className='w-full max-w-md mt-4 mb-2'>
+    <div className='flex flex-col justify-center items-center h-full pt-10'>
+      {/* remove search bar for now */}
+      {/* <div className='w-full max-w-md mt-4 mb-2'>
         <input
           type='text'
           placeholder='Search products...'
@@ -25,8 +47,19 @@ export default function Page() {
           value={searchQuery}
           onChange={handleSearchChange}
         />
-      </div>
-      <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 p-4'>
+      </div> */}
+      <div className='flex flex-row gap-4'>
+          {SupplementTypes.map((type, index) => (
+            <button
+              key={index}
+              className={`py-2 px-4 rounded-lg cursor-pointer ${selectedType === type.type ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-800'}`}
+              onClick={() => handleTypeClick(type.type)}
+            >
+              {type.name}
+            </button>
+          ))}
+        </div>
+      <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 p-4 m-8'>
         {filteredProducts.map((product, index) => (
           <ProductTile key={index} product={product} />
         ))}

@@ -39,7 +39,7 @@ const NavBar = () => {
 
   return (
 
-    <div className='h-20 bg-gray-600 text-white sticky top-0 z-10'>
+    <div className='h-20 bg-black text-white sticky top-0 z-10'>
       <div className='relative w-full h-full flex justify-center items-center px-4 md:px-10'>
 
         {/* Left section */}
