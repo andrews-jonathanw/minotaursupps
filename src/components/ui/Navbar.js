@@ -33,6 +33,10 @@ const NavBar = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const handleCloseSubMenu = () => {
+    setHoveredLink(null);
+  };
+
   return (
 
     <div className='h-20 bg-gray-600 text-white sticky top-0 z-10'>
@@ -49,27 +53,27 @@ const NavBar = () => {
             onMouseEnter={() => handleMouseEnterLink('/products/supplements')}
             onMouseLeave={handleMouseLeaveLink}
           >
-            <Link href="/products/supplements">SUPPLEMENTS</Link>
+            <Link onClick={handleCloseSubMenu} href="/products/supplements">SUPPLEMENTS</Link>
           </div>
           <div
             onMouseEnter={() => handleMouseEnterLink('/products/merch')}
             onMouseLeave={handleMouseLeaveLink}
           >
-            <Link href="/products/merch">MERCH</Link>
+            <Link onClick={handleCloseSubMenu} href="/products/merch">MERCH</Link>
           </div>
           <div
             onMouseEnter={() => handleMouseEnterLink('/products/accessories')}
             onMouseLeave={handleMouseLeaveLink}
           >
-            <Link href="/products/accessories">ACCESSORIES</Link>
+            <Link onClick={handleCloseSubMenu} href="/products/accessories">ACCESSORIES</Link>
           </div>
           <div
             onMouseEnter={() => handleMouseEnterLink('/products/newreleases')}
             onMouseLeave={handleMouseLeaveLink}
           >
-            <Link href="/products/newreleases" className='text-nowrap'>NEW RELEASES</Link>
+            <Link onClick={handleCloseSubMenu} href="/products/newreleases" className='text-nowrap'>NEW RELEASES</Link>
           </div>
-          <Link href="/blog" className='text-nowrap'>BLOG</Link>
+          <Link onClick={handleCloseSubMenu} href="/blog" className='text-nowrap'>BLOG</Link>
         </div>
 
         {/* Right section */}
