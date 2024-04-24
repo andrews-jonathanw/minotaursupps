@@ -24,7 +24,7 @@ const SubMenu = ({ menuItems, onMouseEnter, onMouseLeave }) => {
           <ul>
             {groupedProducts[type].map(product => (
               <li key={product.id}>
-                <Link href={`/product/${product.id}`} className='inline-block hover:underline hover:text-blue-300 transition duration-300'>
+                <Link href={`/products/${type}/${product.name}`} className='inline-block hover:underline hover:text-blue-300 transition duration-300'>
                   {product.name}
                 </Link>
               </li>
