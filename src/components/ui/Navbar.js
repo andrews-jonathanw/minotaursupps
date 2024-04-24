@@ -2,6 +2,7 @@
 import React, { useState, useRef } from 'react';
 import Link from 'next/link';
 import SubMenu from './SubMenu';
+import HamburgerButton from './HamburgerButton';
 import HamburgerMenu from './HamburgerMenu';
 import { ProductsContext } from '@/lib/context/ProductProvider';
 import { FaSearch, FaUser, FaShoppingCart } from 'react-icons/fa';
@@ -10,6 +11,8 @@ const NavBar = () => {
   const { products } = React.useContext(ProductsContext);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [hoveredLink, setHoveredLink] = useState(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   const leaveTimeoutRef = useRef(null);
 
   const handleMouseEnterLink = (link) => {
@@ -26,7 +29,8 @@ const NavBar = () => {
     }, 100);
   };
 
-  const handleHamburgerClick = () => {
+  const handleToggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
   };
 
   return (
@@ -70,10 +74,13 @@ const NavBar = () => {
 
         {/* Right section */}
         <div className="flex flex-row gap-4 items-center absolute right-0 mr-8">
-          <FaSearch className="hidden md:block" />
+          <FaSearch className="md:block" />
+          <HamburgerButton className='' onClick={handleToggleMenu} />
           <FaUser className="hidden md:block" />
-          <FaShoppingCart className="hidden md:block" />
+          <FaShoppingCart className="md:block" />
         </div>
+
+        {isMenuOpen && <HamburgerMenu isOpen={isMenuOpen} onClose={handleToggleMenu} /> }
 
         {hoveredLink && (
           <SubMenu
