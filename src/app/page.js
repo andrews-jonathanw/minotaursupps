@@ -6,6 +6,14 @@ import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { getCheckoutUrl } from '../lib/utils/stripePayment';
 import { useRouter } from 'next/navigation';
 import { ProductsContext } from '@/lib/context/ProductProvider';
+import Carousel from '@/components/landing/Carousel';
+
+const slides = [
+  { id: 0, imageUrl: '/assets/deadlift.jpg' },
+  { id: 1, imageUrl: '/assets/supplementImages/creatine.jpg' },
+  { id: 2, imageUrl: '/assets/supplementImages/23336.jpg' },
+  { id: 3, imageUrl: '/assets/supplementImages/23336.jpg' },
+];
 
 const Home = () => {
   const { products } = React.useContext(ProductsContext);
@@ -113,8 +121,13 @@ const Home = () => {
   }, []);
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between bg-transparent">
-      <h1 className="text-2xl font-semibold text-white">Minotaur Supps</h1>
+    <main className="flex min-h-screen flex-col items-center gap-8 bg-transparent">
+      {/* Carousel */}
+      <Carousel slides={slides} />
+      <div className='text-white'>
+        <h1 className="text-4xl font-bold text-center mt-8">Welcome to the Supplement Store</h1>
+        <p className="text-center mt-4">Your one-stop shop for all your supplement needs</p>
+      </div>
     </main>
   );
 };

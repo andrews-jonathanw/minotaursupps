@@ -38,7 +38,7 @@ export default function Page() {
 
   return (
     <div className='flex flex-col justify-center items-center h-full pt-10'>
-      {/* remove search bar for now */}
+      {/* Search Bar Removed for now */}
       {/* <div className='w-full max-w-md mt-4 mb-2'>
         <input
           type='text'
@@ -48,17 +48,22 @@ export default function Page() {
           onChange={handleSearchChange}
         />
       </div> */}
-      <div className='flex flex-row gap-4'>
+
+      {/* Supplement Type Buttons */}
+      <div className='flex flex-wrap gap-2 md:gap-4 mb-4'>
           {SupplementTypes.map((type, index) => (
             <button
-              key={index}
-              className={`py-2 px-4 rounded-lg cursor-pointer ${selectedType === type.type ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-800'}`}
-              onClick={() => handleTypeClick(type.type)}
+            key={index}
+            className={`py-2 px-4 rounded-lg cursor-pointer ${selectedType === type.type ? 'bg-gray-800 text-white' : 'bg-gray-200 text-gray-800'}`}
+            onClick={() => handleTypeClick(type.type)}
             >
               {type.name}
             </button>
           ))}
         </div>
+          <p className='text-white text-center text-md mx-10 mt-5'>Unleash your potential and conquer your fitness goals with Minotaur Supps, offering premium pre-workout, intra-workout, protein, and amino acid supplements for elevated training experiences.</p>
+
+      {/* Product Grid */}
       <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 p-4 m-8'>
         {filteredProducts.map((product, index) => (
           <ProductTile key={index} product={product} />
